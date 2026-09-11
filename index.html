@@ -14,10 +14,8 @@
 
   <style>
     :root {
-      /* Estilo Gargantúa Cinematográfico (Interestelar): Negro abisal y fuego de acreción masivo */
       --accent-gargantua: #ff6600;
       --accent-gargantua-dim: rgba(255, 102, 0, 0.14);
-      
       --bg-surface: rgba(10, 5, 14, 0.88);
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
@@ -34,16 +32,52 @@
       position: relative;
     }
 
-    /* Fondo animado interactivo: Agujero Negro masivo y campo estelar masivo en Canvas */
+    /* Fondo animado interactivo: Canvas con pointer-events desactivado por completo */
     #space-canvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: -1;
-      pointer-events: none;
+      z-index: 1;
+      pointer-events: none !important;
       background: radial-gradient(circle at center, #0f0518 0%, #020104 100%);
+    }
+
+    /* Contenedor flotante de audio con máxima prioridad de eventos y capa superior absoluta */
+    #audio-container {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 2147483647 !important;
+      pointer-events: auto !important;
+    }
+
+    /* Botón flotante 100% interactivo */
+    #music-toggle-btn {
+      position: relative;
+      z-index: 2147483647 !important;
+      pointer-events: auto !important;
+      background: rgba(10, 5, 14, 0.95);
+      border: 1px solid rgba(255, 102, 0, 0.6);
+      color: #ff8533;
+      padding: 0.7rem 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.8);
+      transition: all 0.25s ease;
+    }
+
+    #music-toggle-btn:hover {
+      border-color: #ff6600;
+      transform: translateY(-2px);
     }
 
     h1, h2, h3, .brand, .hero-section h1, .item-value, .comment-author-name {
@@ -113,7 +147,7 @@
       margin: 0 auto;
       padding: 2.5rem 1.5rem;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     /* HERO */
@@ -510,7 +544,7 @@
 </head>
 <body>
 
-  <!-- Fondo animado interactivo: Agujero negro masivo estilo Interestelar + Campo estelar masivo denso -->
+  <!-- Fondo animado interactivo -->
   <canvas id="space-canvas"></canvas>
 
   <!-- Encabezado -->
@@ -701,7 +735,19 @@
 
   </main>
 
-  <!-- Script de Animación: Agujero Negro masivo estilo Interestelar + Campo estelar masivo denso -->
+  <!-- Reproductor de Música Espacial (Apuntando al archivo local musica.mp3) -->
+  <div id="audio-container">
+    <audio id="bg-music" preload="auto" loop>
+      <source src="./musica.mp3" type="audio/mpeg">
+      Tu navegador no soporta elementos de audio.
+    </audio>
+    <button id="music-toggle-btn" type="button">
+      <span id="music-icon" style="pointer-events: none;">🔇</span>
+      <span id="music-text" style="pointer-events: none;">Activar Música</span>
+    </button>
+  </div>
+
+  <!-- Script de Animación: Agujero Negro masivo estilo Interestelar -->
   <script>
     const canvas = document.getElementById('space-canvas');
     const ctx = canvas.getContext('2d');
@@ -740,11 +786,11 @@
         this.origSize = Math.random() * 1.6 + 0.2;
         const randColor = Math.random();
         if (randColor > 0.85) {
-          this.color = 'rgba(180, 210, 255, '; // Azuladas
+          this.color = 'rgba(180, 210, 255, ';
         } else if (randColor > 0.7) {
-          this.color = 'rgba(255, 220, 180, '; // Cálidas
+          this.color = 'rgba(255, 220, 180, ';
         } else {
-          this.color = 'rgba(255, 255, 255, '; // Blancas puras
+          this.color = 'rgba(255, 255, 255, ';
         }
       }
       update() {
@@ -784,7 +830,6 @@
 
       angle += 0.015;
 
-      // 1. Halo de Plasma Masivo Exterior
       let giantGlow = ctx.createRadialGradient(cx, cy, 50, cx, cy, 340);
       giantGlow.addColorStop(0, 'rgba(0, 0, 0, 1)');
       giantGlow.addColorStop(0.25, 'rgba(255, 80, 0, 0.48)');
@@ -801,7 +846,6 @@
       ctx.fill();
       ctx.restore();
 
-      // 2. Disco de Acreción Inclinado Rotando
       ctx.save();
       ctx.translate(cx, cy);
       ctx.rotate(-angle * 0.5);
@@ -820,7 +864,6 @@
       ctx.fill();
       ctx.restore();
 
-      // 3. Arco Gravitacional Superior
       ctx.save();
       ctx.beginPath();
       ctx.arc(cx, cy - 14, 72, Math.PI, Math.PI * 2, false);
@@ -834,7 +877,6 @@
       ctx.stroke();
       ctx.restore();
 
-      // 4. Arco Inferior de Luz Gravitacional
       ctx.save();
       ctx.beginPath();
       ctx.arc(cx, cy + 14, 72, 0, Math.PI, false);
@@ -847,13 +889,11 @@
       ctx.stroke();
       ctx.restore();
 
-      // 5. El Horizonte de Eventos
       ctx.fillStyle = '#000000';
       ctx.beginPath();
       ctx.arc(cx, cy, 58, 0, Math.PI * 2);
       ctx.fill();
 
-      // 6. Anillo Fotónico Brillante Intenso
       ctx.strokeStyle = 'rgba(255, 240, 200, 0.98)';
       ctx.lineWidth = 3;
       ctx.beginPath();
@@ -864,6 +904,39 @@
     }
 
     animate();
+  </script>
+
+  <!-- Script del Reproductor de Música -->
+  <script>
+    const music = document.getElementById('bg-music');
+    const toggleBtn = document.getElementById('music-toggle-btn');
+    const musicIcon = document.getElementById('music-icon');
+    const musicText = document.getElementById('music-text');
+    
+    let isPlaying = false;
+
+    toggleBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (isPlaying) {
+        music.pause();
+        musicIcon.textContent = '🔇';
+        musicText.textContent = 'Activar Música';
+        isPlaying = false;
+      } else {
+        try {
+          music.volume = 0.3;
+          await music.play();
+          musicIcon.textContent = '🎵';
+          musicText.textContent = 'Pausar Música';
+          isPlaying = true;
+        } catch (err) {
+          console.error("No se pudo reproducir el audio:", err);
+          alert("El navegador bloqueó la reproducción automática. Intenta hacer clic nuevamente.");
+        }
+      }
+    });
   </script>
 
   <!-- Scripts Firebase -->
