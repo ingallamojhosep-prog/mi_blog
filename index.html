@@ -48,11 +48,11 @@
       background: radial-gradient(circle at center, #0f0518 0%, #020104 100%);
     }
 
-    /* Reproductor Retráctil Horizontal (Se oculta hacia la derecha y se desliza al pasar el cursor) */
+    /* Reproductor Retráctil Horizontal */
     #audio-container {
       position: fixed;
       bottom: 25px;
-      right: 0; /* Anclado al borde derecho de la pantalla */
+      right: 0;
       z-index: 2147483647 !important;
       pointer-events: auto !important;
       display: flex;
@@ -65,10 +65,10 @@
       pointer-events: auto !important;
       background: linear-gradient(135deg, rgba(20, 8, 30, 0.95), rgba(10, 3, 15, 0.98));
       border: 1px solid rgba(255, 102, 0, 0.45);
-      border-right: none; /* Se fusiona con el borde derecho al ocultarse */
+      border-right: none;
       color: #ff8533;
       padding: 0.75rem 1.4rem 0.75rem 1.6rem;
-      border-radius: 30px 0 0 30px; /* Redondeado solo a la izquierda */
+      border-radius: 30px 0 0 30px;
       cursor: pointer;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -79,13 +79,10 @@
       font-weight: 600;
       font-size: 0.85rem;
       box-shadow: -8px 8px 32px rgba(0, 0, 0, 0.8), inset 1px 1px 2px rgba(255, 150, 50, 0.3);
-      
-      /* Desplazamiento horizontal oculto: deja una pestaña visible (aprox 44px) */
       transform: translateX(calc(100% - 46px));
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Al poner el cursor encima, se desliza completamente hacia la izquierda mostrando todo el botón */
     #audio-container:hover #music-toggle-btn,
     #music-toggle-btn.playing {
       transform: translateX(0);
@@ -134,7 +131,7 @@
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    /* CABECERA CON BARRA TIPO METEORITO / CÁPSULA ESPACIAL */
+    /* CABECERA */
     .site-header {
       background: transparent;
       padding: 1.25rem 2rem;
@@ -185,7 +182,6 @@
       transform: scale(1.03);
     }
 
-    /* BARRA DE OPCIONES TIPO METEORITO / CÁPSULA FLOTANTE MODERNA */
     .nav-links {
       display: flex;
       align-items: center;
@@ -477,173 +473,394 @@
       margin-bottom: 0.5rem;
     }
 
-    /* COMENTARIOS */
+    /* ══════════════════════════════════════════════════════════════
+       SECCIÓN DE COMENTARIOS: VIVA, MODERNA, CON BUSCADOR DE GIFS AMPLIADO
+       ══════════════════════════════════════════════════════════════ */
     .comments-section {
-      background: var(--bg-surface);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 20px;
-      padding: 2.5rem;
-      border: 1px solid var(--border-color);
-      margin-top: 4rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+      background: linear-gradient(135deg, rgba(12, 4, 20, 0.94), rgba(5, 2, 9, 0.98));
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border-radius: 32px;
+      padding: 3.5rem 3rem;
+      border: 1px solid rgba(255, 102, 0, 0.3);
+      margin-top: 6rem;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), inset 0 1px 3px rgba(255, 133, 51, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .comments-section::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(255, 102, 0, 0.12) 0%, transparent 70%);
+      pointer-events: none;
     }
 
     .comments-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 1rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+      padding-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .comments-header h3 {
       color: #ffffff;
       margin: 0;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      letter-spacing: -0.02em;
+    }
+
+    .comments-header h3 svg {
+      color: #ff6600;
+      filter: drop-shadow(0 0 12px rgba(255, 102, 0, 0.7));
+    }
+
+    .comments-count-badge {
+      background: linear-gradient(135deg, rgba(255, 102, 0, 0.18), rgba(255, 102, 0, 0.3));
+      color: #ff944d;
+      padding: 0.5rem 1.25rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: 1px solid rgba(255, 102, 0, 0.4);
+      box-shadow: 0 5px 20px rgba(255, 102, 0, 0.2);
+    }
+
+    /* Caja de entrada interactiva */
+    .comment-form-card {
+      background: rgba(15, 6, 25, 0.75);
+      border: 1px solid rgba(255, 102, 0, 0.3);
+      border-radius: 24px;
+      padding: 2rem 2.2rem;
+      margin-bottom: 3.5rem;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .comment-form-card:focus-within {
+      border-color: rgba(255, 102, 0, 0.7);
+      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 102, 0, 0.25);
+    }
+
+    .form-group-modern {
+      position: relative;
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group-modern input, 
+    .form-group-modern textarea {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      background: rgba(6, 2, 10, 0.9);
+      border: 1px solid rgba(255, 102, 0, 0.25);
+      color: var(--text-main);
+      border-radius: 14px;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: 0.96rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group-modern input::placeholder, 
+    .form-group-modern textarea::placeholder {
+      color: #64748b;
+    }
+
+    .form-group-modern input:focus, 
+    .form-group-modern textarea:focus {
+      outline: none;
+      border-color: #ff6600;
+      box-shadow: 0 0 0 4px rgba(255, 102, 0, 0.25);
+      background: rgba(10, 3, 16, 0.98);
+    }
+
+    /* Barra de herramientas Interactiva (Solo para GIFs) */
+    .comment-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    .toolbar-actions {
       display: flex;
       align-items: center;
       gap: 0.6rem;
     }
 
-    .comments-count-badge {
-      background: var(--accent-gargantua-dim);
-      color: #ff8533;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
+    .tool-btn {
+      background: rgba(255, 102, 0, 0.1);
       border: 1px solid rgba(255, 102, 0, 0.3);
+      color: #ff944d;
+      padding: 0.55rem 1.2rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
     }
 
-    .comment-form-card {
-      background: rgba(5, 2, 8, 0.8);
-      border: 1px solid var(--border-color);
+    .tool-btn:hover {
+      background: rgba(255, 102, 0, 0.25);
+      border-color: #ff6600;
+      color: #fff;
+    }
+
+    /* Buscador desplegable de Gifs AMPLIADO y GRANDE */
+    .gif-picker-popup {
+      position: absolute;
+      bottom: 55px;
+      left: 0;
+      width: 420px;
+      max-width: 95vw;
+      background: rgba(15, 6, 25, 0.98);
+      border: 1px solid rgba(255, 102, 0, 0.4);
       border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 2.5rem;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+      padding: 16px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.9);
+      backdrop-filter: blur(16px);
+      z-index: 50;
+      display: none;
     }
 
-    .form-row {
+    .gif-picker-popup.active {
+      display: block;
+    }
+
+    .gif-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-height: 280px;
+      overflow-y: auto;
+      margin-top: 10px;
+    }
+
+    .gif-option {
+      width: 100%;
+      height: 95px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .gif-option:hover {
+      transform: scale(1.04);
+      border-color: #ff6600;
+    }
+
+    .form-footer-action {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .submit-comment-btn {
+      background: linear-gradient(135deg, #e65c00, #ff6600);
+      color: #ffffff;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 40px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 25px rgba(255, 102, 0, 0.45);
+      font-size: 0.98rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .submit-comment-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(255, 102, 0, 0.7);
+      background: linear-gradient(135deg, #ff6600, #ff8533);
+    }
+
+    /* Feed de comentarios ultra vivo */
+    .comment-feed {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .form-group input, .form-group textarea {
-      width: 100%;
-      padding: 0.9rem 1.1rem;
-      background: rgba(12, 4, 18, 0.9);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      border-radius: 12px;
-      box-sizing: border-box;
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: all 0.25s ease;
-    }
-
-    .form-group input:focus, .form-group textarea:focus {
-      outline: none;
-      border-color: #ff6600;
-      box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.3);
-      background: rgba(12, 4, 18, 1);
-    }
-
-    .comment-feed {
-      display: flex;
-      flex-direction: column;
       gap: 1.25rem;
     }
 
-    .comment-card-modern {
-      background: linear-gradient(145deg, rgba(18, 6, 26, 0.85), rgba(5, 2, 8, 0.95));
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 1.4rem;
+    /* Tarjeta de comentario tipo Bubble Holográfica Viva */
+    .comment-card-holo {
+      background: linear-gradient(135deg, rgba(18, 7, 29, 0.85), rgba(8, 2, 14, 0.95));
+      border: 1px solid rgba(255, 102, 0, 0.22);
+      border-radius: 20px;
+      padding: 1.6rem 1.8rem;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: holoFadeIn 0.45s ease forwards;
     }
 
-    .comment-card-modern:hover {
-      transform: translateY(-2px);
+    @keyframes holoFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .comment-card-holo:hover {
+      transform: translateY(-4px);
       border-color: rgba(255, 102, 0, 0.55);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 102, 0, 0.15);
+      background: linear-gradient(135deg, rgba(24, 9, 38, 0.95), rgba(12, 4, 20, 0.99));
     }
 
-    .comment-card-modern::before {
+    .comment-card-holo::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: 4px;
+      width: 5px;
       height: 100%;
-      background: linear-gradient(to bottom, #ff6600, #b33600);
+      background: linear-gradient(to bottom, #ff6600, #ff944d);
+      box-shadow: 0 0 15px #ff6600;
     }
 
-    .comment-header-info {
+    .comment-top-row {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
-      margin-bottom: 0.75rem;
+      justify-content: space-between;
+      margin-bottom: 1rem;
     }
 
-    .comment-avatar {
-      width: 38px;
-      height: 38px;
+    .comment-user-box {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .comment-avatar-ring {
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       background: linear-gradient(135deg, #ff6600, #b33600);
-      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 0.95rem;
-      box-shadow: 0 2px 10px rgba(255, 102, 0, 0.5);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      box-shadow: 0 0 18px rgba(255, 102, 0, 0.5);
+      border: 2px solid rgba(255, 255, 255, 0.25);
     }
 
-    .comment-user-details {
+    .comment-user-info {
       display: flex;
       flex-direction: column;
+      gap: 0.15rem;
     }
 
     .comment-author-name {
-      color: #ff8533;
+      color: #ffffff;
       font-weight: 700;
-      font-size: 1rem;
+      font-size: 1.05rem;
+      letter-spacing: -0.01em;
     }
 
-    .comment-timestamp {
+    .comment-timestamp-meta {
       color: var(--text-muted);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
-    .comment-body-text {
-      margin: 0;
+    .comment-timestamp-meta::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background-color: #ff6600;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #ff6600;
+    }
+
+    .comment-tag-pill {
+      background: rgba(255, 102, 0, 0.12);
+      color: #ff8533;
+      border: 1px solid rgba(255, 102, 0, 0.3);
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .comment-text-content {
+      margin: 0 0 0.8rem 0;
       color: #e2e8f0;
-      font-size: 0.96rem;
-      line-height: 1.5;
-      padding-left: calc(38px + 0.85rem);
+      font-size: 0.98rem;
+      line-height: 1.65;
+      padding-left: calc(46px + 1rem);
+      word-break: break-word;
+    }
+
+    .comment-gif-preview {
+      margin-left: calc(46px + 1rem);
+      max-width: 240px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 102, 0, 0.3);
+      display: block;
     }
 
     @media (max-width: 600px) {
-      .comment-body-text {
+      .comment-text-content, .comment-gif-preview {
         padding-left: 0;
-        margin-top: 0.5rem;
+        margin-left: 0;
+        margin-top: 0.85rem;
+      }
+      .comments-section {
+        padding: 2rem 1.25rem;
+      }
+      .comment-form-card {
+        padding: 1.5rem 1.25rem;
+      }
+      .gif-picker-popup {
+        width: 100%;
+        left: 0;
       }
     }
 
     .empty-comments-state {
       text-align: center;
-      padding: 3rem 1rem;
+      padding: 4rem 1.5rem;
       color: var(--text-muted);
-      background: rgba(5, 2, 8, 0.4);
-      border-radius: 12px;
-      border: 1px dashed var(--border-color);
+      background: rgba(8, 3, 13, 0.6);
+      border-radius: 20px;
+      border: 1px dashed rgba(255, 102, 0, 0.3);
     }
   </style>
 </head>
@@ -652,7 +869,7 @@
   <!-- Fondo animado interactivo con Estrellas, Agujero Negro, Planetas y Naves Espaciales -->
   <canvas id="space-canvas"></canvas>
 
-  <!-- Encabezado con barra estilo meteorito / cápsula espacial moderna -->
+  <!-- Encabezado -->
   <header class="site-header" id="siteHeader">
     <div class="navbar">
       <a class="brand-container brand nav-transition-link" href="#inicio">
@@ -821,29 +1038,62 @@
       </div>
     </section>
 
-    <!-- Sección de Comentarios -->
+    <!-- Sección de Comentarios Interactiva, Viva y con Buscador de GIFs Ampliado -->
     <section class="comments-section" id="comentarios">
       <div class="comments-header">
-        <h3>💬 Foro de Opinión y Comentarios</h3>
+        <h3>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Debate Vivo & Comentarios
+        </h3>
         <span class="comments-count-badge" id="commentsCounter">0 Comentarios</span>
       </div>
 
       <div class="comment-form-card">
         <form id="publicCommentForm">
-          <div class="form-row">
-            <div class="form-group">
-              <input type="text" id="commentAuthor" placeholder="Tu Nombre o Usuario" required autocomplete="name">
+          <div class="form-group-modern">
+            <input type="text" id="commentAuthor" placeholder="Tu Nombre o Usuario Académico" required autocomplete="name">
+          </div>
+          
+          <div class="form-group-modern" style="margin-bottom: 0.8rem;">
+            <textarea id="commentContent" rows="3" placeholder="Escribe tu opinión o busca un GIF para adjuntar..." required></textarea>
+          </div>
+
+          <!-- Barra de herramientas (Solo Buscador de GIFs Ampliado) -->
+          <div class="comment-toolbar">
+            <div class="toolbar-actions">
+              <button type="button" class="tool-btn" id="gifToggleBtn">
+                🎞️ Buscar GIFs
+              </button>
+            </div>
+
+            <div style="font-size: 0.78rem; color: var(--text-muted);">¡Comparte contenido multimedia!</div>
+
+            <!-- Popup Buscador de GIFs en formato Grande -->
+            <div class="gif-picker-popup" id="gifPopup">
+              <div style="margin-bottom: 10px;">
+                <input type="text" id="gifSearchInput" placeholder="Escribe para buscar GIFs (ej. hacker, cat)..." style="width: 100%; padding: 10px 12px; background: #06020a; border: 1px solid rgba(255, 102, 0, 0.4); color: #fff; border-radius: 10px; font-size: 0.9rem; box-sizing: border-box; outline: none;">
+              </div>
+              <div class="gif-grid" id="gifResultsGrid">
+                <span style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">Escribe arriba para buscar 🔍</span>
+              </div>
             </div>
           </div>
-          <div class="form-group" style="margin-bottom: 1.2rem;">
-            <textarea id="commentContent" rows="3" placeholder="Escribe tu comentario o apreciación académica..." required></textarea>
+
+          <input type="hidden" id="selectedGifInput" value="">
+
+          <div class="form-footer-action">
+            <button type="submit" class="submit-comment-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Publicar Opinión
+            </button>
           </div>
-          <button type="submit" class="primary-action">✨ Publicar Comentario</button>
         </form>
       </div>
 
       <div id="generalCommentsList" class="comment-feed">
-        <div class="empty-comments-state">Cargando comentarios...</div>
+        <div class="empty-comments-state">
+          <p style="margin:0; font-size:1.1rem; font-weight:700; color:#cbd5e1;">Conectando con el canal interactivo...</p>
+        </div>
       </div>
     </section>
 
@@ -865,7 +1115,7 @@
     </button>
   </div>
 
-  <!-- Script de Animación: Estrellas, Agujero Negro, Planetas y Naves Espaciales -->
+  <!-- Script de Animación Espacial -->
   <script>
     const canvas = document.getElementById('space-canvas');
     const ctx = canvas.getContext('2d');
@@ -1174,7 +1424,7 @@
     animate();
   </script>
 
-  <!-- Script para Ocultar Barra al Bajar y Transición Suave entre Secciones -->
+  <!-- Script para Ocultar Barra y Transiciones -->
   <script>
     let lastScrollTop = 0;
     const siteHeader = document.getElementById('siteHeader');
@@ -1244,7 +1494,7 @@
     });
   </script>
 
-  <!-- Scripts Firebase -->
+  <!-- Script de Interactividad para Buscador de GIFs y Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -1263,6 +1513,93 @@
     const db = getDatabase(app);
     const commentsRef = ref(db, 'comentarios');
 
+    // Elementos del DOM
+    const gifToggleBtn = document.getElementById('gifToggleBtn');
+    const gifPopup = document.getElementById('gifPopup');
+    const gifSearchInput = document.getElementById('gifSearchInput');
+    const gifResultsGrid = document.getElementById('gifResultsGrid');
+    const selectedGifInput = document.getElementById('selectedGifInput');
+
+    const GIPHY_API_KEY = 'dc6zaTOxFJmzC';
+
+    // Control del Popup de GIFs
+    gifToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      gifPopup.classList.toggle('active');
+      if (gifPopup.classList.contains('active') && gifResultsGrid.children.length <= 1) {
+        fetchTrendingGifs();
+      }
+    });
+
+    document.addEventListener('click', () => {
+      gifPopup.classList.remove('active');
+    });
+
+    gifPopup.addEventListener('click', (e) => e.stopPropagation());
+
+    // Búsqueda de GIFs en vivo con soporte estable
+    async function searchGifs(query) {
+      if (!query.trim()) return;
+      const url = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=12&rating=g`;
+      
+      try {
+        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">Buscando...</span>`;
+        const response = await fetch(url);
+        const data = await response.json();
+        renderGifs(data.data);
+      } catch (error) {
+        console.error("Error buscando GIF:", error);
+        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: #ff6600; font-size: 0.85rem; padding: 20px;">Error al conectar</span>`;
+      }
+    }
+
+    async function fetchTrendingGifs() {
+      const url = `https://api.giphy.com/v1/gifs/trending?api_key=${GIPHY_API_KEY}&limit=12&rating=g`;
+      try {
+        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">Cargando...</span>`;
+        const response = await fetch(url);
+        const data = await response.json();
+        renderGifs(data.data);
+      } catch (e) {
+        console.error(e);
+        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: #ff6600; font-size: 0.85rem; padding: 20px;">Error al conectar</span>`;
+      }
+    }
+
+    function renderGifs(gifs) {
+      gifResultsGrid.innerHTML = '';
+      if (!gifs || gifs.length === 0) {
+        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">Sin resultados</span>`;
+        return;
+      }
+
+      gifs.forEach(gif => {
+        const imgUrl = gif.images.fixed_height_small.url;
+        const img = document.createElement('img');
+        img.src = imgUrl;
+        img.className = 'gif-option';
+        
+        img.addEventListener('click', () => {
+          selectedGifInput.value = imgUrl;
+          gifPopup.classList.remove('active');
+          gifToggleBtn.textContent = '🎞️ GIF Seleccionado ✓';
+          gifToggleBtn.style.borderColor = '#ff6600';
+          gifToggleBtn.style.background = 'rgba(255, 102, 0, 0.3)';
+        });
+        
+        gifResultsGrid.appendChild(img);
+      });
+    }
+
+    let searchTimeout;
+    gifSearchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      const query = e.target.value;
+      searchTimeout = setTimeout(() => {
+        searchGifs(query);
+      }, 400);
+    });
+
     function getInitial(name) {
       return name ? name.trim().charAt(0).toUpperCase() : '?';
     }
@@ -1274,32 +1611,37 @@
       container.innerHTML = '';
       
       if (data) {
-        constkeys = Object.keys(data).reverse();
+        const keys = Object.keys(data).reverse();
         counterBadge.textContent = `${keys.length} ${keys.length === 1 ? 'Comentario' : 'Comentarios'}`;
         
         keys.forEach(key => {
           const c = data[key];
           const authorName = c.autor || 'Anónimo';
           const initial = getInitial(authorName);
+          const gifHtml = c.gif ? `<img src="${c.gif}" class="comment-gif-preview" alt="GIF adjunto">` : '';
           
           container.innerHTML += `
-            <div class="comment-card-modern">
-              <div class="comment-header-info">
-                <div class="comment-avatar">${initial}</div>
-                <div class="comment-user-details">
-                  <span class="comment-author-name">${authorName}</span>
-                  <span class="comment-timestamp">Comentario verificado en tiempo real</span>
+            <div class="comment-card-holo">
+              <div class="comment-top-row">
+                <div class="comment-user-box">
+                  <div class="comment-avatar-ring">${initial}</div>
+                  <div class="comment-user-info">
+                    <span class="comment-author-name">${authorName}</span>
+                    <span class="comment-timestamp-meta">Verificado en tiempo real</span>
+                  </div>
                 </div>
+                <span class="comment-tag-pill">Activo</span>
               </div>
-              <p class="comment-body-text">${c.contenido}</p>
+              <p class="comment-text-content">${c.contenido}</p>
+              ${gifHtml}
             </div>`;
         });
       } else {
         counterBadge.textContent = '0 Comentarios';
         container.innerHTML = `
           <div class="empty-comments-state">
-            <p style="margin:0; font-size:1rem; font-weight:600; color:#cbd5e1;">Aún no hay comentarios.</p>
-            <p style="margin:0.4rem 0 0 0; font-size:0.88rem;">¡Sé el primero en dejar tu opinión académica arriba!</p>
+            <p style="margin:0; font-size:1.1rem; font-weight:700; color:#cbd5e1;">Aún no hay opiniones registradas.</p>
+            <p style="margin:0.5rem 0 0 0; font-size:0.92rem; color:var(--text-muted);">¡Sé el primero en aportar un comentario vivo con GIFs!</p>
           </div>`;
       }
     });
@@ -1308,13 +1650,21 @@
       e.preventDefault();
       const authorVal = document.getElementById('commentAuthor').value;
       const contentVal = document.getElementById('commentContent').value;
+      const gifVal = selectedGifInput.value;
       
       push(commentsRef, {
         autor: authorVal,
         contenido: contentVal,
+        gif: gifVal || null,
         creado_en: Date.now()
       }).then(() => {
         document.getElementById('commentContent').value = '';
+        selectedGifInput.value = '';
+        gifToggleBtn.textContent = '🎞️ Buscar GIFs';
+        gifToggleBtn.style.borderColor = '';
+        gifToggleBtn.style.background = '';
+        gifSearchInput.value = '';
+        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">Escribe arriba para buscar 🔍</span>`;
       }).catch((error) => {
         console.error("Error al publicar comentario: ", error);
       });
