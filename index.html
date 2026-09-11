@@ -474,7 +474,7 @@
     }
 
     /* ══════════════════════════════════════════════════════════════
-       SECCIÓN DE COMENTARIOS: VIVA, MODERNA, CON BUSCADOR DE GIFS AMPLIADO
+       SECCIÓN DE COMENTARIOS: VIVA Y MODERNA (SIN GIFS)
        ══════════════════════════════════════════════════════════════ */
     .comments-section {
       background: linear-gradient(135deg, rgba(12, 4, 20, 0.94), rgba(5, 2, 9, 0.98));
@@ -587,93 +587,11 @@
       background: rgba(10, 3, 16, 0.98);
     }
 
-    /* Barra de herramientas Interactiva (Solo para GIFs) */
-    .comment-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.2rem;
-      position: relative;
-    }
-
-    .toolbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .tool-btn {
-      background: rgba(255, 102, 0, 0.1);
-      border: 1px solid rgba(255, 102, 0, 0.3);
-      color: #ff944d;
-      padding: 0.55rem 1.2rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s ease;
-    }
-
-    .tool-btn:hover {
-      background: rgba(255, 102, 0, 0.25);
-      border-color: #ff6600;
-      color: #fff;
-    }
-
-    /* Buscador desplegable de Gifs AMPLIADO y GRANDE */
-    .gif-picker-popup {
-      position: absolute;
-      bottom: 55px;
-      left: 0;
-      width: 420px;
-      max-width: 95vw;
-      background: rgba(15, 6, 25, 0.98);
-      border: 1px solid rgba(255, 102, 0, 0.4);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.9);
-      backdrop-filter: blur(16px);
-      z-index: 50;
-      display: none;
-    }
-
-    .gif-picker-popup.active {
-      display: block;
-    }
-
-    .gif-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      max-height: 280px;
-      overflow-y: auto;
-      margin-top: 10px;
-    }
-
-    .gif-option {
-      width: 100%;
-      height: 95px;
-      object-fit: cover;
-      border-radius: 10px;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-
-    .gif-option:hover {
-      transform: scale(1.04);
-      border-color: #ff6600;
-    }
-
     .form-footer-action {
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      margin-top: 1rem;
     }
 
     .submit-comment-btn {
@@ -820,7 +738,7 @@
     }
 
     .comment-text-content {
-      margin: 0 0 0.8rem 0;
+      margin: 0;
       color: #e2e8f0;
       font-size: 0.98rem;
       line-height: 1.65;
@@ -828,18 +746,9 @@
       word-break: break-word;
     }
 
-    .comment-gif-preview {
-      margin-left: calc(46px + 1rem);
-      max-width: 240px;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 102, 0, 0.3);
-      display: block;
-    }
-
     @media (max-width: 600px) {
-      .comment-text-content, .comment-gif-preview {
+      .comment-text-content {
         padding-left: 0;
-        margin-left: 0;
         margin-top: 0.85rem;
       }
       .comments-section {
@@ -847,10 +756,6 @@
       }
       .comment-form-card {
         padding: 1.5rem 1.25rem;
-      }
-      .gif-picker-popup {
-        width: 100%;
-        left: 0;
       }
     }
 
@@ -1038,7 +943,440 @@
       </div>
     </section>
 
-   <!-- Script de Interactividad para Buscador de GIFs con Klipy y Firebase -->
+    <!-- Sección de Comentarios Interactiva, Viva (Sin GIFs) -->
+    <section class="comments-section" id="comentarios">
+      <div class="comments-header">
+        <h3>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Debate Vivo & Comentarios
+        </h3>
+        <span class="comments-count-badge" id="commentsCounter">0 Comentarios</span>
+      </div>
+
+      <div class="comment-form-card">
+        <form id="publicCommentForm">
+          <div class="form-group-modern">
+            <input type="text" id="commentAuthor" placeholder="Tu Nombre o Usuario Académico" required autocomplete="name">
+          </div>
+          
+          <div class="form-group-modern" style="margin-bottom: 0;">
+            <textarea id="commentContent" rows="3" placeholder="Escribe tu opinión académica..." required></textarea>
+          </div>
+
+          <div class="form-footer-action">
+            <button type="submit" class="submit-comment-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Publicar Opinión
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div id="generalCommentsList" class="comment-feed">
+        <div class="empty-comments-state">
+          <p style="margin:0; font-size:1.1rem; font-weight:700; color:#cbd5e1;">Conectando con el canal interactivo...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Reproductor de Música Espacial Retráctil Horizontal -->
+  <div id="audio-container">
+    <audio id="bg-music" preload="auto" loop>
+      <source src="./musica.mp3?v=2" type="audio/mpeg">
+      Tu navegador no soporta elementos de audio.
+    </audio>
+    <button id="music-toggle-btn" type="button">
+      <div class="music-waves" id="musicWaves">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <span id="music-text" style="pointer-events: none; white-space: nowrap;">Reproducir Música</span>
+    </button>
+  </div>
+
+  <!-- Script de Animación Espacial -->
+  <script>
+    const canvas = document.getElementById('space-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let mouse = {
+      x: width * 0.5,
+      y: height * 0.38,
+      targetX: width * 0.5,
+      targetY: height * 0.38
+    };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.targetX = e.clientX;
+      mouse.targetY = e.clientY;
+    });
+
+    const particles = [];
+    const numStars = 1200;
+
+    class Star {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = (Math.random() - 0.5) * width * 2.5;
+        this.y = (Math.random() - 0.5) * height * 2.5;
+        this.z = Math.random() * width;
+        this.origSize = Math.random() * 1.6 + 0.2;
+        const randColor = Math.random();
+        if (randColor > 0.85) {
+          this.color = 'rgba(180, 210, 255, ';
+        } else if (randColor > 0.7) {
+          this.color = 'rgba(255, 220, 180, ';
+        } else {
+          this.color = 'rgba(255, 255, 255, ';
+        }
+      }
+      update() {
+        this.z -= 0.5;
+        if (this.z <= 0) this.z = width;
+      }
+    }
+
+    for (let i = 0; i < numStars; i++) {
+      particles.push(new Star());
+    }
+
+    const planets = [
+      {
+        orbitX: 280,
+        orbitY: 100,
+        radius: 10,
+        speed: 0.008,
+        angle: Math.random() * Math.PI * 2,
+        colorBase: '#4da6ff',
+        hasRing: true,
+        ringRadius: 18
+      },
+      {
+        orbitX: 430,
+        orbitY: 150,
+        radius: 14,
+        speed: 0.005,
+        angle: Math.random() * Math.PI * 2,
+        colorBase: '#ff944d',
+        hasRing: false
+      },
+      {
+        orbitX: 180,
+        orbitY: 65,
+        radius: 6,
+        speed: 0.015,
+        angle: Math.random() * Math.PI * 2,
+        colorBase: '#b3b3b3',
+        hasRing: false
+      }
+    ];
+
+    const spaceships = [
+      {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: 1.2,
+        vy: -0.4,
+        scale: 0.8,
+        angle: -0.3
+      },
+      {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: -0.9,
+        vy: 0.5,
+        scale: 0.6,
+        angle: 2.8
+      }
+    ];
+
+    let angle = 0;
+
+    function animate() {
+      mouse.x += (mouse.targetX - mouse.x) * 0.04;
+      mouse.y += (mouse.targetY - mouse.y) * 0.04;
+
+      ctx.fillStyle = '#020104';
+      ctx.fillRect(0, 0, width, height);
+
+      const cx = mouse.x;
+      const cy = mouse.y;
+
+      particles.forEach(p => {
+        let k = 320 / p.z;
+        let px = p.x * k + width * 0.5;
+        let py = p.y * k + height * 0.38;
+        if (px >= 0 && px <= width && py >= 0 && py <= height) {
+          let size = Math.max(0.1, p.origSize * k);
+          let alpha = Math.min(1, (1 - p.z / width) * 0.8 + 0.2);
+          ctx.fillStyle = p.color + alpha + ')';
+          ctx.fillRect(px, py, size, size);
+        }
+        p.update();
+      });
+
+      spaceships.forEach(ship => {
+        ship.x += ship.vx;
+        ship.y += ship.vy;
+
+        if (ship.x < -100) ship.x = width + 100;
+        if (ship.x > width + 100) ship.x = -100;
+        if (ship.y < -100) ship.y = height + 100;
+        if (ship.y > height + 100) ship.y = -100;
+
+        ctx.save();
+        ctx.translate(ship.x, ship.y);
+        ctx.rotate(Math.atan2(ship.vy, ship.vx));
+        ctx.scale(ship.scale, ship.scale);
+
+        let trail = ctx.createLinearGradient(-35, 0, 0, 0);
+        trail.addColorStop(0, 'rgba(255, 102, 0, 0)');
+        trail.addColorStop(1, 'rgba(255, 133, 51, 0.65)');
+        ctx.fillStyle = trail;
+        ctx.beginPath();
+        ctx.moveTo(-35, -2);
+        ctx.lineTo(0, -6);
+        ctx.lineTo(0, 6);
+        ctx.lineTo(-35, 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#94a3b8';
+        ctx.beginPath();
+        ctx.moveTo(14, 0);
+        ctx.lineTo(-12, -7);
+        ctx.lineTo(-6, 0);
+        ctx.lineTo(-12, 7);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = '#ff6600';
+        ctx.beginPath();
+        ctx.moveTo(4, 0);
+        ctx.lineTo(-4, -3);
+        ctx.lineTo(-2, 0);
+        ctx.lineTo(-4, 3);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = '#475569';
+        ctx.beginPath();
+        ctx.moveTo(-4, -4);
+        ctx.lineTo(-14, -13);
+        ctx.lineTo(-9, -4);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(-4, 4);
+        ctx.lineTo(-14, 13);
+        ctx.lineTo(-9, 4);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
+      });
+
+      angle += 0.015;
+
+      let giantGlow = ctx.createRadialGradient(cx, cy, 50, cx, cy, 340);
+      giantGlow.addColorStop(0, 'rgba(0, 0, 0, 1)');
+      giantGlow.addColorStop(0.25, 'rgba(255, 80, 0, 0.48)');
+      giantGlow.addColorStop(0.6, 'rgba(180, 40, 0, 0.16)');
+      giantGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(angle * 0.2);
+      ctx.translate(-cx, -cy);
+      ctx.fillStyle = giantGlow;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 340, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(-angle * 0.5);
+      ctx.scale(1, 0.32);
+
+      let massiveDisk = ctx.createRadialGradient(0, 0, 52, 0, 0, 215);
+      massiveDisk.addColorStop(0, 'rgba(0, 0, 0, 0.99)');
+      massiveDisk.addColorStop(0.2, 'rgba(255, 90, 0, 0.98)');
+      massiveDisk.addColorStop(0.5, 'rgba(255, 160, 50, 0.8)');
+      massiveDisk.addColorStop(0.8, 'rgba(200, 50, 0, 0.25)');
+      massiveDisk.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+      ctx.fillStyle = massiveDisk;
+      ctx.beginPath();
+      ctx.arc(0, 0, 215, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy - 14, 72, Math.PI, Math.PI * 2, false);
+      let lensingArc = ctx.createLinearGradient(cx - 72, cy - 86, cx + 72, cy - 14);
+      lensingArc.addColorStop(0, 'rgba(255, 100, 0, 0.1)');
+      lensingArc.addColorStop(0.3, 'rgba(255, 180, 90, 0.95)');
+      lensingArc.addColorStop(0.7, 'rgba(255, 230, 160, 1)');
+      lensingArc.addColorStop(1, 'rgba(255, 100, 0, 0.1)');
+      ctx.strokeStyle = lensingArc;
+      ctx.lineWidth = 6;
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy + 14, 72, 0, Math.PI, false);
+      let bottomArc = ctx.createLinearGradient(cx - 72, cy + 14, cx + 72, cy + 86);
+      bottomArc.addColorStop(0, 'rgba(255, 70, 0, 0.05)');
+      bottomArc.addColorStop(0.5, 'rgba(255, 130, 30, 0.6)');
+      bottomArc.addColorStop(1, 'rgba(255, 70, 0, 0.05)');
+      ctx.strokeStyle = bottomArc;
+      ctx.lineWidth = 3.5;
+      ctx.stroke();
+      ctx.restore();
+
+      planets.forEach(planet => {
+        planet.angle += planet.speed;
+        let pX = cx + Math.cos(planet.angle) * planet.orbitX;
+        let pY = cy + Math.sin(planet.angle) * planet.orbitY;
+
+        let gradPlanet = ctx.createRadialGradient(
+          pX - planet.radius * 0.3, pY - planet.radius * 0.3, planet.radius * 0.1,
+          pX, pY, planet.radius
+        );
+        gradPlanet.addColorStop(0, '#ffffff');
+        gradPlanet.addColorStop(0.4, planet.colorBase);
+        gradPlanet.addColorStop(1, '#020104');
+
+        if (planet.hasRing && Math.sin(planet.angle) < 0) {
+          ctx.save();
+          ctx.strokeStyle = 'rgba(200, 170, 130, 0.5)';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.ellipse(pX, pY, planet.ringRadius, planet.ringRadius * 0.35, planet.angle, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        ctx.fillStyle = gradPlanet;
+        ctx.beginPath();
+        ctx.arc(pX, pY, planet.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (planet.hasRing && Math.sin(planet.angle) >= 0) {
+          ctx.save();
+          ctx.strokeStyle = 'rgba(200, 170, 130, 0.7)';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.ellipse(pX, pY, planet.ringRadius, planet.ringRadius * 0.35, planet.angle, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+      });
+
+      ctx.fillStyle = '#000000';
+      ctx.beginPath();
+      ctx.arc(cx, cy, 58, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(255, 240, 200, 0.98)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 59, 0, Math.PI * 2);
+      ctx.stroke();
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
+  <!-- Script para Ocultar Barra y Transiciones -->
+  <script>
+    let lastScrollTop = 0;
+    const siteHeader = document.getElementById('siteHeader');
+
+    window.addEventListener('scroll', () => {
+      let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (currentScroll > lastScrollTop && currentScroll > 80) {
+        siteHeader.classList.add('header-hidden');
+      } else {
+        siteHeader.classList.remove('header-hidden');
+      }
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }, { passive: true });
+
+    const navLinks = document.querySelectorAll('.nav-transition-link');
+    const mainContainer = document.getElementById('mainContentContainer');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetId = link.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+          e.preventDefault();
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            mainContainer.classList.add('fade-out');
+            setTimeout(() => {
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+              mainContainer.classList.remove('fade-out');
+            }, 250);
+          }
+        }
+      });
+    });
+  </script>
+
+  <!-- Script del Reproductor de Música -->
+  <script>
+    const music = document.getElementById('bg-music');
+    const toggleBtn = document.getElementById('music-toggle-btn');
+    const musicText = document.getElementById('music-text');
+    
+    let isPlaying = false;
+
+    toggleBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (isPlaying) {
+        music.pause();
+        toggleBtn.classList.remove('playing');
+        musicText.textContent = 'Reproducir Música';
+        isPlaying = false;
+      } else {
+        try {
+          music.volume = 0.3;
+          await music.play();
+          toggleBtn.classList.add('playing');
+          musicText.textContent = 'Pausar Música';
+          isPlaying = true;
+        } catch (err) {
+          console.error("No se pudo reproducir el audio:", err);
+          alert("El navegador bloqueó la reproducción automática. Intenta hacer clic nuevamente.");
+        }
+      }
+    });
+  </script>
+
+  <!-- Script de Interactividad con Firebase (Sin GIFs) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -1056,96 +1394,6 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const commentsRef = ref(db, 'comentarios');
-
-    const gifToggleBtn = document.getElementById('gifToggleBtn');
-    const gifPopup = document.getElementById('gifPopup');
-    const gifSearchInput = document.getElementById('gifSearchInput');
-    const gifResultsGrid = document.getElementById('gifResultsGrid');
-    const selectedGifInput = document.getElementById('selectedGifInput');
-
-    const KLIPY_API_KEY = 'oCYIsnodQkFXbPUvTgGv0XJXUzPP3jBSIUYqrobrsA6fQKxk0aTCeSSlpCuRiTJe';
-
-    gifToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      gifPopup.classList.toggle('active');
-      if (gifPopup.classList.contains('active') && gifResultsGrid.children.length <= 1) {
-        fetchTrendingGifs();
-      }
-    });
-
-    document.addEventListener('click', () => {
-      gifPopup.classList.remove('active');
-    });
-
-    gifPopup.addEventListener('click', (e) => e.stopPropagation());
-
-    async function searchGifs(query) {
-      if (!query.trim()) return;
-      const url = `https://api.klipy.co/api/v1/${KLIPY_API_KEY}/gifs/search?q=${encodeURIComponent(query)}&per_page=12`;
-      
-      try {
-        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">Buscando...</span>`;
-        const response = await fetch(url);
-        const data = await response.json();
-        // Klipy devuelve los resultados dentro de data.data o data.result dependiendo de la versión
-        const items = data.data || data.result || [];
-        renderGifs(items);
-      } catch (error) {
-        console.error("Error buscando GIF en Klipy:", error);
-        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: #ff6600; font-size: 0.85rem; padding: 20px;">Error al conectar</span>`;
-      }
-    }
-
-    async function fetchTrendingGifs() {
-      const url = `https://api.klipy.co/api/v1/${KLIPY_API_KEY}/gifs/trending?per_page=12`;
-      try {
-        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">Cargando...</span>`;
-        const response = await fetch(url);
-        const data = await response.json();
-        const items = data.data || data.result || [];
-        renderGifs(items);
-      } catch (e) {
-        console.error(e);
-        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: #ff6600; font-size: 0.85rem; padding: 20px;">Error al conectar</span>`;
-      }
-    }
-
-    function renderGifs(gifs) {
-      gifResultsGrid.innerHTML = '';
-      if (!gifs || gifs.length === 0) {
-        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">Sin resultados</span>`;
-        return;
-      }
-
-      gifs.forEach(gif => {
-        // Estructura adaptada para extraer la URL del GIF de la respuesta de Klipy
-        const imgUrl = gif.images?.fixed_height_small?.url || gif.url || gif.media_url;
-        if (!imgUrl) return;
-
-        const img = document.createElement('img');
-        img.src = imgUrl;
-        img.className = 'gif-option';
-        
-        img.addEventListener('click', () => {
-          selectedGifInput.value = imgUrl;
-          gifPopup.classList.remove('active');
-          gifToggleBtn.textContent = '🎞️ GIF Seleccionado ✓';
-          gifToggleBtn.style.borderColor = '#ff6600';
-          gifToggleBtn.style.background = 'rgba(255, 102, 0, 0.3)';
-        });
-        
-        gifResultsGrid.appendChild(img);
-      });
-    }
-
-    let searchTimeout;
-    gifSearchInput.addEventListener('input', (e) => {
-      clearTimeout(searchTimeout);
-      const query = e.target.value;
-      searchTimeout = setTimeout(() => {
-        searchGifs(query);
-      }, 400);
-    });
 
     function getInitial(name) {
       return name ? name.trim().charAt(0).toUpperCase() : '?';
@@ -1165,7 +1413,6 @@
           const c = data[key];
           const authorName = c.autor || 'Anónimo';
           const initial = getInitial(authorName);
-          const gifHtml = c.gif ? `<img src="${c.gif}" class="comment-gif-preview" alt="GIF adjunto">` : '';
           
           container.innerHTML += `
             <div class="comment-card-holo">
@@ -1180,7 +1427,6 @@
                 <span class="comment-tag-pill">Activo</span>
               </div>
               <p class="comment-text-content">${c.contenido}</p>
-              ${gifHtml}
             </div>`;
         });
       } else {
@@ -1188,7 +1434,7 @@
         container.innerHTML = `
           <div class="empty-comments-state">
             <p style="margin:0; font-size:1.1rem; font-weight:700; color:#cbd5e1;">Aún no hay opiniones registradas.</p>
-            <p style="margin:0.5rem 0 0 0; font-size:0.92rem; color:var(--text-muted);">¡Sé el primero en aportar un comentario vivo con GIFs!</p>
+            <p style="margin:0.5rem 0 0 0; font-size:0.92rem; color:var(--text-muted);">¡Sé el primero en aportar un comentario académico en vivo!</p>
           </div>`;
       }
     });
@@ -1197,21 +1443,14 @@
       e.preventDefault();
       const authorVal = document.getElementById('commentAuthor').value;
       const contentVal = document.getElementById('commentContent').value;
-      const gifVal = selectedGifInput.value;
       
       push(commentsRef, {
         autor: authorVal,
         contenido: contentVal,
-        gif: gifVal || null,
         creado_en: Date.now()
       }).then(() => {
         document.getElementById('commentContent').value = '';
-        selectedGifInput.value = '';
-        gifToggleBtn.textContent = '🎞️ Buscar GIFs';
-        gifToggleBtn.style.borderColor = '';
-        gifToggleBtn.style.background = '';
-        gifSearchInput.value = '';
-        gifResultsGrid.innerHTML = `<span style="grid-column: span 3; text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 20px;">Escribe arriba para buscar 🔍</span>`;
+        document.getElementById('commentAuthor').value = '';
       }).catch((error) => {
         console.error("Error al publicar comentario: ", error);
       });
