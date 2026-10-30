@@ -767,6 +767,167 @@
       border-radius: 20px;
       border: 1px dashed rgba(255, 102, 0, 0.3);
     }
+
+    /* ══════════ PANEL ADMIN / SUBIDA DE TRABAJOS ══════════ */
+    #admin-fab {
+      position: fixed;
+      bottom: 25px;
+      left: 20px;
+      z-index: 2147483000;
+      background: linear-gradient(135deg, rgba(20, 8, 30, 0.95), rgba(10, 3, 15, 0.98));
+      border: 1px solid rgba(255, 102, 0, 0.45);
+      color: #ff8533;
+      padding: 0.7rem 1.2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.8);
+      transition: all 0.3s ease;
+    }
+    #admin-fab:hover { border-color: #ff6600; box-shadow: 0 8px 28px rgba(0,0,0,.8), 0 0 20px rgba(255,102,0,.35); }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 1, 4, 0.82);
+      backdrop-filter: blur(6px);
+      z-index: 2147483100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    .modal-card {
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: linear-gradient(135deg, rgba(18, 7, 29, 0.98), rgba(8, 2, 14, 0.99));
+      border: 1px solid rgba(255, 102, 0, 0.4);
+      border-radius: 22px;
+      padding: 2rem;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 102, 0, 0.15);
+    }
+    .modal-card h3 {
+      margin: 0 0 1.2rem 0;
+      color: #fff;
+      font-size: 1.35rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-close {
+      background: none; border: none; color: var(--text-muted);
+      font-size: 1.6rem; cursor: pointer; line-height: 1;
+    }
+    .modal-card label {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin: 1rem 0 0.35rem;
+    }
+    .modal-card input[type="text"],
+    .modal-card input[type="email"],
+    .modal-card input[type="password"],
+    .modal-card input[type="url"],
+    .modal-card select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.8rem 1rem;
+      background: rgba(6, 2, 10, 0.9);
+      border: 1px solid rgba(255, 102, 0, 0.25);
+      color: var(--text-main);
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.92rem;
+    }
+    .modal-card select option { background: #12061c; }
+    .modal-card input:focus, .modal-card select:focus {
+      outline: none; border-color: #ff6600; box-shadow: 0 0 0 3px rgba(255,102,0,.25);
+    }
+    .modal-card input[type="file"] {
+      width: 100%;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 0.7rem;
+      border: 1px dashed rgba(255, 102, 0, 0.4);
+      border-radius: 12px;
+      background: rgba(6, 2, 10, 0.6);
+      box-sizing: border-box;
+    }
+    .mode-tabs { display: flex; gap: 0.5rem; margin-top: 1rem; }
+    .mode-tabs button {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 102, 0, 0.3);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 600;
+      font-family: inherit;
+      font-size: 0.82rem;
+    }
+    .mode-tabs button.active {
+      background: rgba(255, 102, 0, 0.18);
+      color: #ff8533;
+      border-color: #ff6600;
+    }
+    .progress-wrap {
+      height: 8px; border-radius: 6px; background: rgba(255,255,255,.08);
+      margin-top: 1rem; overflow: hidden; display: none;
+    }
+    .progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, #cc4400, #ff8533); transition: width .2s; }
+    .admin-msg { margin-top: 0.9rem; font-size: 0.85rem; min-height: 1.2em; }
+    .admin-msg.err { color: #ff7a7a; }
+    .admin-msg.ok { color: #7affb0; }
+    .modal-actions { display: flex; gap: 0.7rem; margin-top: 1.4rem; flex-wrap: wrap; }
+    .btn-ghost {
+      background: transparent; color: var(--text-muted);
+      border: 1px solid rgba(255,255,255,.15);
+      padding: 0.85rem 1.4rem; border-radius: 40px; cursor: pointer;
+      font-weight: 600; font-family: inherit;
+    }
+
+    .delete-btn {
+      display: none;
+      background: rgba(255, 60, 60, 0.1);
+      color: #ff7a7a;
+      border: 1px solid rgba(255, 60, 60, 0.35);
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .delete-btn:hover { background: #ff3c3c; color: #fff; }
+    body.is-admin .delete-btn { display: inline-flex; }
+    .card-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+
+    .empty-unit {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-muted);
+      background: rgba(8, 3, 13, 0.6);
+      border: 1px dashed rgba(255, 102, 0, 0.3);
+      border-radius: 16px;
+      font-size: 0.92rem;
+    }
+    .preview-box img { width: 100%; height: 100%; object-fit: contain; background: #020104; }
+    .preview-box .no-preview {
+      height: 100%; display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -851,7 +1012,7 @@
         <span style="font-size: 0.85rem; font-weight: 500; color: var(--text-muted);">REPOSITORIO ACADÉMICO</span>
       </div>
 
-      <div class="posts-grid">
+      <div class="posts-grid" id="grid-u1" data-unit="1">
         
         <!-- Primer Trabajo -->
         <article class="post-card">
@@ -970,6 +1131,24 @@
         </article>
 
       </div>
+
+      <!-- UNIDAD 2 -->
+      <div class="unit-banner" id="unidad-2">
+        <span>UNIDAD 2 · TEORÍA GENERAL DE SISTEMAS</span>
+        <span style="font-size: 0.85rem; font-weight: 500; color: var(--text-muted);">REPOSITORIO ACADÉMICO</span>
+      </div>
+      <div class="posts-grid" id="grid-u2" data-unit="2">
+        <div class="empty-unit">Aún no hay trabajos en esta unidad.</div>
+      </div>
+
+      <!-- UNIDAD 3 -->
+      <div class="unit-banner" id="unidad-3">
+        <span>UNIDAD 3 · TEORÍA GENERAL DE SISTEMAS</span>
+        <span style="font-size: 0.85rem; font-weight: 500; color: var(--text-muted);">REPOSITORIO ACADÉMICO</span>
+      </div>
+      <div class="posts-grid" id="grid-u3" data-unit="3">
+        <div class="empty-unit">Aún no hay trabajos en esta unidad.</div>
+      </div>
     </section>
 
     <!-- Sección de Comentarios Interactiva, Viva (Sin GIFs) -->
@@ -1009,6 +1188,74 @@
     </section>
 
   </main>
+
+  <!-- Panel de administrador -->
+  <button id="admin-fab" type="button">🔐 Admin</button>
+
+  <div class="modal-backdrop" id="adminModal">
+    <div class="modal-card">
+      <h3>
+        <span id="adminTitle">Acceso de administrador</span>
+        <button class="modal-close" type="button" id="adminClose" aria-label="Cerrar">&times;</button>
+      </h3>
+
+      <!-- Login -->
+      <form id="loginForm">
+        <label for="loginEmail">Correo</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+        <label for="loginPass">Contraseña</label>
+        <input type="password" id="loginPass" required autocomplete="current-password">
+        <div class="modal-actions">
+          <button type="submit" class="submit-comment-btn">Ingresar</button>
+        </div>
+        <div class="admin-msg" id="loginMsg"></div>
+      </form>
+
+      <!-- Subida -->
+      <form id="uploadForm" style="display:none;">
+        <label for="upUnit">Unidad</label>
+        <select id="upUnit">
+          <option value="1">Unidad 1</option>
+          <option value="2">Unidad 2</option>
+          <option value="3">Unidad 3</option>
+        </select>
+
+        <label for="upType">Tipo</label>
+        <select id="upType">
+          <option>INFORME ACADÉMICO</option>
+          <option>MAPA MENTAL</option>
+          <option>DIAPOSITIVAS</option>
+          <option>TRABAJO</option>
+          <option>OTRO</option>
+        </select>
+
+        <label for="upTitle">Título</label>
+        <input type="text" id="upTitle" placeholder="Ej: Análisis de Casos de Sistemas" required>
+
+        <div class="mode-tabs">
+          <button type="button" id="modeFile" class="active">📁 Subir archivo</button>
+          <button type="button" id="modeLink">🔗 Enlace de Drive</button>
+        </div>
+
+        <div id="boxFile">
+          <label for="upFile">Archivo (PDF, imagen, Word, PowerPoint…)</label>
+          <input type="file" id="upFile">
+        </div>
+        <div id="boxLink" style="display:none;">
+          <label for="upLink">Enlace de Google Drive (compartido: "cualquiera con el enlace")</label>
+          <input type="url" id="upLink" placeholder="https://drive.google.com/file/d/....../view">
+        </div>
+
+        <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+        <div class="admin-msg" id="upMsg"></div>
+
+        <div class="modal-actions">
+          <button type="submit" class="submit-comment-btn" id="upSubmit">Publicar trabajo</button>
+          <button type="button" class="btn-ghost" id="logoutBtn">Cerrar sesión</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Reproductor de Música Espacial Retráctil Horizontal -->
   <div id="audio-container">
@@ -1408,7 +1655,9 @@
   <!-- Script de Interactividad con Firebase (Sin GIFs) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCnOk6XeBctoZ7_5FeaVWRzikfDRUtenh4",
@@ -1423,6 +1672,198 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const commentsRef = ref(db, 'comentarios');
+
+    const auth = getAuth(app);
+    const storage = getStorage(app);
+    const worksRef = ref(db, 'trabajos');
+
+    function esc(s) {
+      return String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    }
+
+    /* ---------- Modal admin ---------- */
+    const $ = (id) => document.getElementById(id);
+    const modal = $('adminModal');
+    $('admin-fab').addEventListener('click', () => modal.classList.add('open'));
+    $('adminClose').addEventListener('click', () => modal.classList.remove('open'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
+
+    let mode = 'file';
+    $('modeFile').addEventListener('click', () => {
+      mode = 'file';
+      $('modeFile').classList.add('active'); $('modeLink').classList.remove('active');
+      $('boxFile').style.display = ''; $('boxLink').style.display = 'none';
+    });
+    $('modeLink').addEventListener('click', () => {
+      mode = 'link';
+      $('modeLink').classList.add('active'); $('modeFile').classList.remove('active');
+      $('boxLink').style.display = ''; $('boxFile').style.display = 'none';
+    });
+
+    $('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = $('loginMsg');
+      msg.className = 'admin-msg'; msg.textContent = 'Ingresando...';
+      try {
+        await signInWithEmailAndPassword(auth, $('loginEmail').value, $('loginPass').value);
+        msg.textContent = '';
+        $('loginPass').value = '';
+      } catch (err) {
+        msg.className = 'admin-msg err';
+        msg.textContent = 'Correo o contraseña incorrectos.';
+      }
+    });
+
+    $('logoutBtn').addEventListener('click', () => signOut(auth));
+
+    onAuthStateChanged(auth, (user) => {
+      const logged = !!user;
+      document.body.classList.toggle('is-admin', logged);
+      $('loginForm').style.display = logged ? 'none' : '';
+      $('uploadForm').style.display = logged ? '' : 'none';
+      $('adminTitle').textContent = logged ? 'Subir trabajo' : 'Acceso de administrador';
+      $('admin-fab').textContent = logged ? '➕ Subir trabajo' : '🔐 Admin';
+    });
+
+    /* ---------- Subida ---------- */
+    function driveId(url) {
+      const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      return m ? m[1] : null;
+    }
+
+    $('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = $('upMsg');
+      const btn = $('upSubmit');
+      const bar = $('progressBar');
+      const wrap = $('progressWrap');
+      msg.className = 'admin-msg';
+      msg.textContent = '';
+
+      const base = {
+        unidad: $('upUnit').value,
+        tipo: $('upType').value,
+        titulo: $('upTitle').value.trim(),
+        creado_en: Date.now()
+      };
+
+      try {
+        btn.disabled = true;
+
+        if (mode === 'link') {
+          const id = driveId($('upLink').value.trim());
+          if (!id) throw new Error('El enlace de Drive no es válido.');
+          await push(worksRef, {
+            ...base,
+            origen: 'drive',
+            previewUrl: `https://drive.google.com/file/d/${id}/preview`,
+            downloadUrl: `https://drive.google.com/uc?export=download&id=${id}`
+          });
+        } else {
+          const file = $('upFile').files[0];
+          if (!file) throw new Error('Selecciona un archivo.');
+          if (file.size > 200 * 1024 * 1024) throw new Error('El archivo supera los 200 MB.');
+
+          const safeName = file.name.replace(/[^\w.\-]+/g, '_');
+          const path = `trabajos/unidad${base.unidad}/${Date.now()}_${safeName}`;
+          const task = uploadBytesResumable(sRef(storage, path), file, { contentType: file.type });
+
+          wrap.style.display = 'block';
+          await new Promise((resolve, reject) => {
+            task.on('state_changed',
+              (s) => { bar.style.width = (s.bytesTransferred / s.totalBytes * 100) + '%'; },
+              reject,
+              resolve);
+          });
+          const url = await getDownloadURL(task.snapshot.ref);
+          await push(worksRef, {
+            ...base,
+            origen: 'storage',
+            storagePath: path,
+            nombreArchivo: file.name,
+            mime: file.type || '',
+            previewUrl: url,
+            downloadUrl: url
+          });
+        }
+
+        msg.className = 'admin-msg ok';
+        msg.textContent = '✔ Trabajo publicado en la Unidad ' + base.unidad + '.';
+        $('upTitle').value = ''; $('upFile').value = ''; $('upLink').value = '';
+      } catch (err) {
+        console.error(err);
+        msg.className = 'admin-msg err';
+        msg.textContent = err.message || 'No se pudo publicar. Revisa las reglas de Firebase.';
+      } finally {
+        btn.disabled = false;
+        setTimeout(() => { wrap.style.display = 'none'; bar.style.width = '0'; }, 800);
+      }
+    });
+
+    /* ---------- Render en tiempo real ---------- */
+    function previewHtml(w) {
+      const mime = w.mime || '';
+      const name = (w.nombreArchivo || '').toLowerCase();
+      if (w.origen === 'drive') {
+        return `<iframe src="${esc(w.previewUrl)}" width="100%" height="100%" style="border:none;" allow="autoplay"></iframe>`;
+      }
+      if (mime.startsWith('image/')) {
+        return `<img src="${esc(w.previewUrl)}" alt="${esc(w.titulo)}" loading="lazy">`;
+      }
+      if (mime === 'application/pdf' || name.endsWith('.pdf')) {
+        return `<iframe src="${esc(w.previewUrl)}" width="100%" height="100%" style="border:none;"></iframe>`;
+      }
+      if (/\.(docx?|pptx?|xlsx?)$/.test(name)) {
+        return `<iframe src="https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(w.previewUrl)}" width="100%" height="100%" style="border:none;"></iframe>`;
+      }
+      return `<div class="no-preview">Vista previa no disponible.<br>Usa el botón de descarga.</div>`;
+    }
+
+    onValue(worksRef, (snapshot) => {
+      const data = snapshot.val() || {};
+      ['1', '2', '3'].forEach(u => {
+        const grid = $('grid-u' + u);
+        grid.querySelectorAll('.dyn-card, .empty-unit').forEach(n => n.remove());
+
+        const items = Object.entries(data)
+          .filter(([, w]) => String(w.unidad) === u)
+          .sort((a, b) => (a[1].creado_en || 0) - (b[1].creado_en || 0));
+
+        items.forEach(([key, w]) => {
+          const card = document.createElement('article');
+          card.className = 'post-card dyn-card';
+          card.innerHTML = `
+            <div>
+              <span class="badge">${esc(w.tipo)}</span>
+              <h3>${esc(w.titulo)}</h3>
+              <p><small style="color: var(--text-muted);">Curso: TGS</small></p>
+            </div>
+            <div class="preview-box">${previewHtml(w)}</div>
+            <div class="card-actions">
+              <a href="${esc(w.downloadUrl)}" target="_blank" rel="noopener noreferrer" class="download-btn">📥 Descargar</a>
+              <button type="button" class="delete-btn" data-key="${esc(key)}">🗑 Eliminar</button>
+            </div>`;
+          card.querySelector('.delete-btn').addEventListener('click', async () => {
+            if (!confirm('¿Eliminar este trabajo?')) return;
+            try {
+              if (w.origen === 'storage' && w.storagePath) {
+                await deleteObject(sRef(storage, w.storagePath)).catch(() => {});
+              }
+              await remove(ref(db, 'trabajos/' + key));
+            } catch (err) {
+              console.error(err);
+              alert('No se pudo eliminar.');
+            }
+          });
+          grid.appendChild(card);
+        });
+
+        // Unidad 1 ya tiene tarjetas fijas, así que solo se muestra vacío en 2 y 3
+        if (u !== '1' && items.length === 0) {
+          grid.innerHTML = '<div class="empty-unit">Aún no hay trabajos en esta unidad.</div>';
+        }
+      });
+    });
 
     function getInitial(name) {
       return name ? name.trim().charAt(0).toUpperCase() : '?';
@@ -1441,7 +1882,7 @@
         keys.forEach(key => {
           const c = data[key];
           const authorName = c.autor || 'Anónimo';
-          const initial = getInitial(authorName);
+          const initial = esc(getInitial(authorName));
           
           container.innerHTML += `
             <div class="comment-card-holo">
@@ -1449,13 +1890,13 @@
                 <div class="comment-user-box">
                   <div class="comment-avatar-ring">${initial}</div>
                   <div class="comment-user-info">
-                    <span class="comment-author-name">${authorName}</span>
+                    <span class="comment-author-name">${esc(authorName)}</span>
                     <span class="comment-timestamp-meta">Verificado en tiempo real</span>
                   </div>
                 </div>
                 <span class="comment-tag-pill">Activo</span>
               </div>
-              <p class="comment-text-content">${c.contenido}</p>
+              <p class="comment-text-content">${esc(c.contenido)}</p>
             </div>`;
         });
       } else {
